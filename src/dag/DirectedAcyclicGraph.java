@@ -1,30 +1,35 @@
 package dag;
 
-import dag.Vertex;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 
 public class DirectedAcyclicGraph {
 
-    //private ArrayList<Vertex> vertexList = new ArrayList<>();
-    private Hashtable<Integer,Vertex> vertexList;
+    //private ArrayList<Vertex> vertexHashList = new ArrayList<>();
+    private Hashtable<Integer,Vertex> vertexHashList;
+    private ArrayList<Integer> verticesKeys = new ArrayList<Integer>();
     private ArrayList<Edge> edgeList;
 
     public DirectedAcyclicGraph() {
-        vertexList = new Hashtable<>();
+        vertexHashList = new Hashtable<>();
         edgeList = new ArrayList<>();
     }
 
     public int addVertex(Object weight) {
         Vertex v = new Vertex(weight);
-        vertexList.put(v.getId(), v);
-        return v.getId();
+        int id = v.getId();
+        vertexHashList.put(id, v);
+        verticesKeys.add(id);
+
+        return id;
     }
 
-    public void addEdge(char a, char b, char c) {
-
+    public void addEdge(Object a, Object b, Object weight) {
+        Vertex vertexA = vertexHashList.get(a);
+        Vertex vertexB = vertexHashList.get(b);
+        Edge edge = new Edge(vertexA,vertexB,weight);
+        edgeList.add(edge);
     }
 
     /* PSEUDO code for topological ordering

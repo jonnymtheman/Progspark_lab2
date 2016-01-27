@@ -4,17 +4,22 @@ import dag.Edge;
 
 class Vertex {
     private Object weight;
-    private Edge edge;
+    //private Edge edge;
+    protected boolean visited;
 
-    public Vertex(Object weight){
+    protected Vertex(Object weight){
         this.weight = weight;
     }
 
-    public void setWeight(int w){
+    protected void setWeight(int w){
         this.weight = w;
     }
 
-    public int getId() {
+    protected Object getWeight(){
+        return weight;
+    }
+
+    protected  int getId() {
         return this.hashCode();
     }
 }
