@@ -9,11 +9,8 @@ public class DirectedAcyclicGraph {
     private ArrayList<Vertex> dagList = new ArrayList<>();
 
     public int addVertex(Object weight) {
-        int identifier = 0;
-
         Vertex v = new Vertex(weight);
         dagList.add(v);
-
         return v.getId();
     }
 
