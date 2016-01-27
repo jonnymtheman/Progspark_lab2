@@ -48,17 +48,12 @@ public class DirectedAcyclicGraph {
         ArrayList<Vertex> unmarkedVertices = vertices;
 
         for (Vertex v: unmarkedVertices) {
-            if (v.marked){
-                continue;
-            } else {
-                v.marked = true;
-            }
-
-
-
-
-
+            visit(v);
         }
+    }
+
+    private void visit(Vertex n) {
+
     }
 
     public void addEdge(Vertex a, Vertex b, int weight) {
