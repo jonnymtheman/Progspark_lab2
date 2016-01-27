@@ -1,5 +1,8 @@
+package dag;
 
-public class Vertex {
+import dag.Edge;
+
+class Vertex {
     private Object weight;
     private Edge edge;
 
@@ -9,5 +12,9 @@ public class Vertex {
 
     public void setWeight(int w){
         this.weight = w;
+    }
+
+    public int getId() {
+        return this.hashCode();
     }
 }

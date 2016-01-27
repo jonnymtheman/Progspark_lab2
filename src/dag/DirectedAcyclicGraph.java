@@ -1,3 +1,6 @@
+package dag;
+
+import dag.Vertex;
 
 import java.util.ArrayList;
 
@@ -8,9 +11,10 @@ public class DirectedAcyclicGraph {
     public int addVertex(Object weight) {
         int identifier = 0;
 
-        dagList.add(new Vertex(weight));
+        Vertex v = new Vertex(weight);
+        dagList.add(v);
 
-        return identifier;
+        return v.getId();
     }
 
     public void addEdge(char a, char b, char c) {
