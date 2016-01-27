@@ -8,7 +8,7 @@ public class DirectedAcyclicGraph {
 
     //private ArrayList<Vertex> vertexHashList = new ArrayList<>();
     private Hashtable<Integer,Vertex> vertexHashList;
-    private ArrayList<Integer> verticesKeys = new ArrayList<Integer>();
+    private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
     private ArrayList<Edge> edgeList;
 
     public DirectedAcyclicGraph() {
@@ -20,7 +20,7 @@ public class DirectedAcyclicGraph {
         Vertex v = new Vertex(weight);
         int id = v.getId();
         vertexHashList.put(id, v);
-        verticesKeys.add(id);
+        vertices.add(v);
 
         return id;
     }
@@ -45,7 +45,20 @@ public class DirectedAcyclicGraph {
      */
 
     public void topologicalOrdering() {
+        ArrayList<Vertex> unmarkedVertices = vertices;
 
+        for (Vertex v: unmarkedVertices) {
+            if (v.marked){
+                continue;
+            } else {
+                v.marked = true;
+            }
+
+
+
+
+
+        }
     }
 
     public void addEdge(Vertex a, Vertex b, int weight) {

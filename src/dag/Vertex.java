@@ -2,7 +2,7 @@ package dag;
 
 class Vertex {
     private Object weight;
-    protected boolean visited;
+    protected boolean marked = false;
 
     protected Vertex(Object weight){
         this.weight = weight;
