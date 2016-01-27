@@ -3,6 +3,7 @@ package dag;
 import dag.Vertex;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DirectedAcyclicGraph {
 
@@ -14,7 +15,7 @@ public class DirectedAcyclicGraph {
         return v.getId();
     }
 
-    public void addEdge(char a, char b, char c) {
+    public void addEdge(Object a, Object b, Object weight) {
 
     }
 
