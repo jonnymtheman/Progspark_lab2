@@ -1,12 +1,12 @@
 package dag;
 
 class Vertex {
-    private int weight;
+    private Object weight;
 
     protected boolean tempMarked = false;
     protected boolean permMarked = false;
 
-    protected Vertex(int weight){
+    protected Vertex(Object weight) {
         this.weight = weight;
     }
 
@@ -26,7 +26,7 @@ class Vertex {
         return tempMarked;
     }
 
-    protected int getWeight(){
+    protected Object getWeight() {
         return weight;
     }
 
