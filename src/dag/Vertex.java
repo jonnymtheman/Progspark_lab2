@@ -3,28 +3,26 @@ package dag;
 class Vertex {
     private Object weight;
 
-
-
-    protected boolean temp_marked = false;
-    protected boolean perm_maked = false;
+    protected boolean tempMarked = false;
+    protected boolean permMarked = false;
     protected Vertex(Object weight){
         this.weight = weight;
     }
 
-    protected void setTemp_marked(Boolean b) {
-        temp_marked = b;
+    protected void setTempMarked(Boolean b) {
+        tempMarked = b;
     }
 
-    protected void setPerm_maked(Boolean b) {
-        perm_maked = b;
+    protected void setPerm_marked(Boolean b) {
+        permMarked = b;
     }
 
-    protected boolean isPerm_maked() {
-        return perm_maked;
+    protected boolean isPerm_marked() {
+        return permMarked;
     }
 
-    protected boolean isTemp_marked() {
-        return temp_marked;
+    protected boolean isTempMarked() {
+        return tempMarked;
     }
 
     protected Object getWeight(){

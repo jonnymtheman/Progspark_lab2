@@ -17,5 +17,15 @@ class Edge {
 
     protected Vertex getDestination() { return destination; }
 
+    protected boolean hasDestination(Vertex n) {
+        if (origin==n) {
+            if (destination != null) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     protected Object getWeight() { return weight; }
 }
