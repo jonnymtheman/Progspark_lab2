@@ -19,7 +19,7 @@ public class DirectedAcyclicGraph {
         lList = new Stack<>();
     }
 
-    public int addVertex(Object weight) {
+    public int addVertex(int weight) {
         Vertex v = new Vertex(weight);
         int id = v.getId();
         vertexHashList.put(id, v);
@@ -51,16 +51,28 @@ public class DirectedAcyclicGraph {
         add n to head of L
      */
 
-    public void topologicalOrdering() {
-        ArrayList<Vertex> unmarkedVertices = vertices;
-
-        for (Vertex v: unmarkedVertices) {
-            try {
-                visit(v);
-            } catch (NotADagException e) {
-                e.printStackTrace();
+    public Stack<Vertex> topologicalOrdering() {
+        while (isUnmarked()) {
+            for (Vertex v : vertices) {
+                if (!v.isPerm_marked()) {
+                    try {
+                        visit(v);
+                    } catch (NotADagException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
+        return lList;
+    }
+
+    private boolean isUnmarked() {
+        for (Vertex v : vertices) {
+            if (!v.isPerm_marked()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void visit(Vertex n) throws NotADagException {
@@ -69,14 +81,15 @@ public class DirectedAcyclicGraph {
         }
         if (!n.permMarked) {
             n.setTempMarked(true);
+
+            ArrayList<Vertex> mList = getEdgesFromVertex(n);
+            for (Vertex m : mList) {
+                visit(m);
+            }
+            n.setPerm_marked(true);
+            n.setTempMarked(false);
+            lList.push(n);
         }
-        ArrayList<Vertex> mList = getEdgesFromVertex(n);
-        for (Vertex m : mList) {
-            visit(m);
-        }
-        n.setPerm_marked(true);
-        n.setTempMarked(false);
-        lList.push(n);
     }
 
     private ArrayList<Vertex> getEdgesFromVertex(Vertex n) {
@@ -89,7 +102,4 @@ public class DirectedAcyclicGraph {
         return tempList;
     }
 
-    public void addEdge(Vertex a, Vertex b, int weight) {
-
-    }
 }
