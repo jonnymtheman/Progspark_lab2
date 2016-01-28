@@ -11,12 +11,12 @@ public class DirectedAcyclicGraph {
     private Hashtable<Integer,Vertex> vertexHashList;
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
     private ArrayList<Edge> edgeList;
-    private Stack<Vertex> lList;
+    private ArrayList<Vertex> lList;
 
     public DirectedAcyclicGraph() {
         vertexHashList = new Hashtable<>();
         edgeList = new ArrayList<>();
-        lList = new Stack<>();
+        lList = new ArrayList<>();
     }
 
     public int addVertex(int weight) {
@@ -32,6 +32,8 @@ public class DirectedAcyclicGraph {
         Vertex vertexA = vertexHashList.get(a);
         Vertex vertexB = vertexHashList.get(b);
         Edge edge = new Edge(vertexA,vertexB,weight);
+
+
         edgeList.add(edge);
     }
 
@@ -51,14 +53,15 @@ public class DirectedAcyclicGraph {
         add n to head of L
      */
 
-    public Stack<Vertex> topologicalOrdering() {
+    public ArrayList<Vertex> topologicalOrdering() {
         while (isUnmarked()) {
             for (Vertex v : vertices) {
                 if (!v.isPerm_marked()) {
                     try {
                         visit(v);
                     } catch (NotADagException e) {
-                        e.printStackTrace();
+                        System.err.println("Not a DAG; Contains cycles");
+                        return null;
                     }
                 }
             }
@@ -88,7 +91,7 @@ public class DirectedAcyclicGraph {
             }
             n.setPerm_marked(true);
             n.setTempMarked(false);
-            lList.push(n);
+            lList.add(n);
         }
     }
 

@@ -3,6 +3,7 @@ package dag;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import static org.junit.Assert.*;
@@ -12,6 +13,7 @@ public class DirectedAcyclicGraphTest {
 
     private DirectedAcyclicGraph dag;
     int a,b,c,d,e;
+
     @Before
     public void setUp() throws Exception {
         dag = new DirectedAcyclicGraph();
@@ -32,9 +34,11 @@ public class DirectedAcyclicGraphTest {
         c = dag.addVertex(3);
         d= dag.addVertex(4);
         e =dag.addVertex(5);
+
         dag.addEdge(a, b, 2);
         dag.addEdge(a, c, 2);
         dag.addEdge(b, d, 1);
+        dag.addEdge(d,a,3);
         dag.addEdge(c, d, 1);
         dag.addEdge(c, e, 1);
         dag.addEdge(d, e, 3);
@@ -43,7 +47,7 @@ public class DirectedAcyclicGraphTest {
 
     @Test
     public void testTopologicalOrdering() throws Exception {
-        Stack<Vertex> s;
+        ArrayList<Vertex> s;
         s=dag.topologicalOrdering();
         for (Vertex v: s) {
            // System.out.println(v.getId());
