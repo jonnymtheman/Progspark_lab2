@@ -27,5 +27,7 @@ class Edge {
         return false;
     }
 
+
+
     protected Object getWeight() { return weight; }
 }
