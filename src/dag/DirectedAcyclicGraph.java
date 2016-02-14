@@ -1,9 +1,14 @@
 package dag;
 
+import java.lang.reflect.Executable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Stack;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 
 public class DirectedAcyclicGraph {
@@ -16,18 +21,21 @@ public class DirectedAcyclicGraph {
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
     private ArrayList<Edge> edgeList;
     private ArrayList<Vertex> lList;
-    private Stack<Edge> pathStack = new Stack<>();
-    private Stack<Vertex> stackOfNodes = new Stack<>();
-    private ArrayList<Stack<Edge>> pathArrList = new ArrayList<>();
+    private Stack<Edge> pathStack;
+    private Stack<Vertex> stackOfNodes;
+    private ArrayList<Stack<Edge>> pathArrList;
 
 
     public DirectedAcyclicGraph() {
         vertexHashList = new Hashtable<>();
+        pathStack = new Stack<>();
+        stackOfNodes = new Stack<>();
         edgeList = new ArrayList<>();
         lList = new ArrayList<>();
+        pathArrList = new ArrayList<>();
     }
 
-    public int addVertex(int weight) {
+    public int addVertex(Object weight) {
         Vertex v = new Vertex(weight);
         int id = v.getId();
         vertexHashList.put(id, v);
@@ -42,7 +50,7 @@ public class DirectedAcyclicGraph {
         vertexA.addNeighbour(vertexB);
         Edge edge = new Edge(vertexA,vertexB,weight);
 
-        vertexA.outEdges.add(edge);
+        //vertexA.outEdges.add(edge);
         vertexB.incEdges.add(edge);
 
         edgeList.add(edge);
@@ -125,9 +133,10 @@ public class DirectedAcyclicGraph {
         traverse(pop stack of nodes)
      *  */
 
-    public int getWeightOflongestPath(Vertex start, Vertex goal){
+    public int getWeightOflongestPath(Vertex start, Vertex goal, Method f, Method g){
         traverse(start,goal,start);
         System.out.println("Paths found from: "+ start.getWeight() + " to " + goal.getWeight() + " = " + pathArrList.size());
+        System.out.println("Longest path: "+sumOfFFunc(pathArrList,f,g));
         return 0;
     }
 
@@ -180,27 +189,52 @@ public class DirectedAcyclicGraph {
 
     }
 
-    private int fFunc(ArrayList<ArrayList<Vertex>> paths){
-        int weight = 0;
+    private int sumOfFFunc(ArrayList<Stack<Edge>> paths, Method f,Method g){
+
         ArrayList<Integer> weights = new ArrayList<>();
+        Object fInst=null;
+        Object gInst=null;
 
-        for (ArrayList<Vertex> av: paths){
+        try {
+            Class fClass = f.getDeclaringClass();
+            Class gClass = g.getDeclaringClass();
+            gInst = gClass.newInstance();
+            fInst = fClass.newInstance();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //Check edge weights
+        for (Stack<Edge> e: paths){
+            int edgeWeight=0;
+            int vertexWeight=0;
+            int lastVertexW=0;
             //Loops through one path
-            for (Vertex v: av) {
-                weight += v.getWeight();
+            for (Edge edge: e) {
+
+                try {
+                    vertexWeight += (int)g.invoke(gInst,edge.getOrigin().getWeight());
+                    edgeWeight += (int)f.invoke(fInst,edge.getWeight());
+                    lastVertexW = (int)g.invoke(gInst,edge.getDestination().getWeight());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                //System.out.println("VertexW: "+ vertexWeight + " EdgeW: "+ edgeWeight);
             }
+            vertexWeight += lastVertexW;
             //adds the total length of the path to a list.
-            weights.add(weight);
+            int totalW = (edgeWeight+vertexWeight);
+            weights.add(totalW);
+            System.out.println("Total Weight: "+ totalW + "\n");
         }
-
-        int vertexWeightsLongest = 0;
-
+        int maxW=0;
         for (Integer i: weights) {
-            if (i > vertexWeightsLongest){
-                vertexWeightsLongest = i;
+            if (i>maxW){
+                maxW = i;
             }
+            //System.out.println("Weight: "+i);
         }
-        //Returns the longest path
-        return vertexWeightsLongest;
+        return maxW; //Returns the longest path
     }
 }

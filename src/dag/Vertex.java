@@ -3,9 +3,9 @@ package dag;
 import java.util.ArrayList;
 
 class Vertex {
-    private int weight;
+    private Object weight;
     protected ArrayList<Edge> incEdges = new ArrayList<>();
-    protected ArrayList<Edge> outEdges = new ArrayList<>();
+    //protected ArrayList<Edge> outEdges = new ArrayList<>();
 
     protected boolean tempMarked = false;
     protected boolean permMarked = false;
@@ -15,7 +15,7 @@ class Vertex {
         neighbours.add(n);
     }
 
-    protected Vertex(int weight){
+    protected Vertex(Object weight){
         this.weight = weight;
     }
 
@@ -35,7 +35,7 @@ class Vertex {
         return tempMarked;
     }
 
-    protected int getWeight(){
+    protected Object getWeight(){
         return weight;
     }
 

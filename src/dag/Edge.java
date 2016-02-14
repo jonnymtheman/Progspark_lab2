@@ -12,10 +12,14 @@ class Edge {
         this.weight = weight;
     }
 
-    protected Vertex getOrigin() { return origin; }
+    protected Vertex getOrigin() {
+        return origin;
+    }
 
 
-    protected Vertex getDestination() { return destination; }
+    protected Vertex getDestination() {
+        return destination;
+    }
 
     protected boolean hasDestination(Vertex n) {
         if (origin==n) {
@@ -27,7 +31,7 @@ class Edge {
         return false;
     }
 
-
-
-    protected Object getWeight() { return weight; }
+    protected Object getWeight() {
+        return weight;
+    }
 }
