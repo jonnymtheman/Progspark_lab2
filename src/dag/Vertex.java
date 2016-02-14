@@ -1,39 +1,50 @@
 package dag;
 
+import java.util.ArrayList;
+
 class Vertex {
-    private Object weight;
+    private int weight;
+    protected ArrayList<Edge> incEdges = new ArrayList<>();
+    protected ArrayList<Edge> outEdges = new ArrayList<>();
 
+    protected boolean tempMarked = false;
+    protected boolean permMarked = false;
+    private ArrayList<Vertex> neighbours = new ArrayList<Vertex>();
 
+    protected void addNeighbour(Vertex n){
+        neighbours.add(n);
+    }
 
-    protected boolean temp_marked = false;
-    protected boolean perm_marked = false;
-
-    protected Vertex(Object weight){
+    protected Vertex(int weight){
         this.weight = weight;
     }
 
-    protected void setTemp_marked(Boolean b) {
-        temp_marked = b;
+    protected void setTempMarked(Boolean b) {
+        tempMarked = b;
     }
 
-    protected void setPerm_maked(Boolean b) {
-        perm_marked = b;
+    protected void setPerm_marked(Boolean b) {
+        permMarked = b;
     }
 
     protected boolean isPerm_marked() {
-        return perm_marked;
+        return permMarked;
     }
 
-    protected boolean isTemp_marked() {
-        return temp_marked;
+    protected boolean isTempMarked() {
+        return tempMarked;
     }
 
-    protected Object getWeight(){
+    protected int getWeight(){
         return weight;
     }
 
     protected  int getId() {
         return this.hashCode();
+    }
+
+    public ArrayList<Vertex> getNeighbours() {
+        return neighbours;
     }
 
 }
