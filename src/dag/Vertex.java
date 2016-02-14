@@ -6,7 +6,8 @@ class Vertex {
 
 
     protected boolean temp_marked = false;
-    protected boolean perm_maked = false;
+    protected boolean perm_marked = false;
+
     protected Vertex(Object weight){
         this.weight = weight;
     }
@@ -16,11 +17,11 @@ class Vertex {
     }
 
     protected void setPerm_maked(Boolean b) {
-        perm_maked = b;
+        perm_marked = b;
     }
 
-    protected boolean isPerm_maked() {
-        return perm_maked;
+    protected boolean isPerm_marked() {
+        return perm_marked;
     }
 
     protected boolean isTemp_marked() {

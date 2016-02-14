@@ -52,8 +52,27 @@ public class DirectedAcyclicGraph {
         }
     }
 
-    private void visit(Vertex n) {
+    private int visit(Vertex n) {
+        /* PSEUDO code for topological ordering
+    function visit(node n)
+    if n has a temporary mark then stop (not a DAG)
 
+    if n is not marked (i.e. has not been visited yet) then
+        mark n temporarily
+        for each node m with an edge from n to m do
+            visit(m)
+        mark n permanently
+        unmark n temporarily
+        add n to head of L
+     */
+        if (n.isTemp_marked()){
+            return -1;
+        }
+        if (!n.isTemp_marked() && !n.isPerm_marked()){
+
+        }
+
+        return 0;
     }
 
     public void addEdge(Vertex a, Vertex b, int weight) {
