@@ -93,12 +93,12 @@ public class DirectedAcyclicGraph {
     }
 
     private ArrayList<Vertex> getEdgesFromVertex(Vertex n) {
-            ArrayList<Vertex> tempList = new ArrayList<>();
-            for (Edge e : edgeList) {
-                if (e.hasDestination(n)) {
-                    tempList.add(e.getDestination());
-                }
+        ArrayList<Vertex> tempList = new ArrayList<>();
+        for (Edge e : edgeList) {
+            if (e.hasDestination(n)) {
+                tempList.add(e.getDestination());
             }
+        }
         return tempList;
     }
 
