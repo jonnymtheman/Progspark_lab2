@@ -1,21 +1,15 @@
 package dag;
 
-import java.lang.reflect.Executable;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Stack;
-import java.util.concurrent.Callable;
-import java.util.function.Function;
 
-
+/**
+ * An implementation of the Abstract data type Directed Acyclic Graph
+ */
 public class DirectedAcyclicGraph {
-
-    public Hashtable<Integer, Vertex> getVertexHashList() {
-        return vertexHashList;
-    }
 
     private Hashtable<Integer,Vertex> vertexHashList;
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
@@ -25,7 +19,9 @@ public class DirectedAcyclicGraph {
     private Stack<Vertex> stackOfNodes;
     private ArrayList<Stack<Edge>> pathArrList;
 
-
+    /**
+     * Constructor
+     */
     public DirectedAcyclicGraph() {
         vertexHashList = new Hashtable<>();
         pathStack = new Stack<>();
@@ -35,6 +31,11 @@ public class DirectedAcyclicGraph {
         pathArrList = new ArrayList<>();
     }
 
+    /**
+     * addVertex - Method for adding a vertex to the dag.
+     * @param weight the weight of the vertex.
+     * @return int the id of the vertex
+     */
     public int addVertex(Object weight) {
         Vertex v = new Vertex(weight);
         int id = v.getId();
@@ -44,6 +45,12 @@ public class DirectedAcyclicGraph {
         return id;
     }
 
+    /**
+     * Method for adding an edge between two vertices.
+     * @param a origin vertex
+     * @param b destination vertex
+     * @param weight the weight of the egde.
+     */
     public void addEdge(Object a, Object b, Object weight) {
         Vertex vertexA = vertexHashList.get(a);
         Vertex vertexB = vertexHashList.get(b);
@@ -57,10 +64,16 @@ public class DirectedAcyclicGraph {
     }
 
 
+    /**
+     * topologicalOrdering - Part of the user visible interface of methods.
+     * Sorts the dag topologically and returns an arraylist of vertices in
+     * order.
+     * @return ArrayList<Vertex> of vertices
+     */
     public ArrayList<Vertex> topologicalOrdering() {
         while (isUnmarked()) {
             for (Vertex v : vertices) {
-                if (!v.isPerm_marked()) {
+                if (!v.isPermMarked()) {
                     try {
                         visit(v);
                     } catch (NotADagException e) {
@@ -74,15 +87,24 @@ public class DirectedAcyclicGraph {
         return lList;
     }
 
+    /**
+     * isUnmarked - Internal marking method for the DAG.
+     * @return boolean
+     */
     private boolean isUnmarked() {
         for (Vertex v : vertices) {
-            if (!v.isPerm_marked()) {
+            if (!v.isPermMarked()) {
                 return true;
             }
         }
         return false;
     }
 
+    /**
+     * Internal method for visiting the the nodes/vertices in the dag.
+     * @param n vertex n
+     * @throws NotADagException If no dag, will be caught and the user will be told.
+     */
     private void visit(Vertex n) throws NotADagException {
         if (n.isTempMarked()) {
             throw new NotADagException();
@@ -94,12 +116,17 @@ public class DirectedAcyclicGraph {
             for (Vertex m : mList) {
                 visit(m);
             }
-            n.setPerm_marked(true);
+            n.setPermMarked(true);
             n.setTempMarked(false);
             lList.add(n);
         }
     }
 
+    /**
+     * Internal method for getting the edges from a vertex.
+     * @param n the vertex from where the edges origin.
+     * @return ArrayList<Vertex> with vertices outgoing.
+     */
     private ArrayList<Vertex> getEdgesFromVertex(Vertex n) {
         ArrayList<Vertex> tempList = new ArrayList<>();
         for (Edge e : edgeList) {
@@ -109,6 +136,11 @@ public class DirectedAcyclicGraph {
         }
         return tempList;
     }
+
+    public Hashtable<Integer, Vertex> getVertexHashList() {
+        return vertexHashList;
+    }
+
 
     /*
      traverse(node n, goalNode)
@@ -133,6 +165,14 @@ public class DirectedAcyclicGraph {
         traverse(pop stack of nodes)
      *  */
 
+    /**
+     * getWeightOflongestPath - Public method for getting the longest path within the DAG.
+     * @param start start vertex.
+     * @param goal goal vertex.
+     * @param f A method provided by the user for dealing with the weight of the edges.
+     * @param g A method provided by the user for dealing with the weight of the vertices.
+     * @return int The weight of the longest path as an int.
+     */
     public int getWeightOflongestPath(Vertex start, Vertex goal, Method f, Method g){
         traverse(start,goal,start);
         System.out.println("Paths found from: "+ start.getWeight() + " to " + goal.getWeight() + " = " + pathArrList.size());
@@ -140,6 +180,12 @@ public class DirectedAcyclicGraph {
         return 0;
     }
 
+    /**
+     * Internal method for traversing the dag.
+     * @param n vertex n
+     * @param goalNode vertex
+     * @param lastNode vertex
+     */
     private void traverse(Vertex n, Vertex goalNode, Vertex lastNode){
         Boolean foundEdge = false;
         if (!n.incEdges.isEmpty()){ //if n has incoming edges
@@ -189,6 +235,10 @@ public class DirectedAcyclicGraph {
 
     }
 
+    /**
+     * Internal method for calculating the sum of the weights.
+     * @return int the total sum
+     */
     private int sumOfFFunc(ArrayList<Stack<Edge>> paths, Method f,Method g){
 
         ArrayList<Integer> weights = new ArrayList<>();

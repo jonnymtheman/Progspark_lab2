@@ -6,9 +6,9 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
-
+/**
+ * Conduction of a series of tests for the dag.
+ */
 public class DirectedAcyclicGraphTest {
 
     private DirectedAcyclicGraph dag;
@@ -31,6 +31,12 @@ public class DirectedAcyclicGraphTest {
         dag.addEdge(c, e, 'a');
         dag.addEdge(d, e, 'c');
     }
+
+    /**
+     * Methods to use as the f and g functions in the data type.
+     * @param o object
+     * @return int a weight
+     */
     public int fFunc (Object o){
         switch (o.toString()){
             case "a":
@@ -52,6 +58,11 @@ public class DirectedAcyclicGraphTest {
         }
     }
 
+    /**
+     * Methods to use as the f and g functions in the data type.
+     * @param o object
+     * @return int a weight
+     */
     public int gFunc (Object o){
         switch (o.toString()){
             case "a":

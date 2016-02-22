@@ -2,11 +2,14 @@ package dag;
 
 import java.util.ArrayList;
 
+/**
+ * The internal vertex class in this implementation of a DAG.
+ *
+ * Many of the methods in this class are self explanatory.
+ */
 class Vertex {
     private Object weight;
     protected ArrayList<Edge> incEdges = new ArrayList<>();
-    //protected ArrayList<Edge> outEdges = new ArrayList<>();
-
     protected boolean tempMarked = false;
     protected boolean permMarked = false;
     private ArrayList<Vertex> neighbours = new ArrayList<Vertex>();
@@ -23,11 +26,11 @@ class Vertex {
         tempMarked = b;
     }
 
-    protected void setPerm_marked(Boolean b) {
+    protected void setPermMarked(Boolean b) {
         permMarked = b;
     }
 
-    protected boolean isPerm_marked() {
+    protected boolean isPermMarked() {
         return permMarked;
     }
 
