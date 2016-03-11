@@ -59,8 +59,16 @@ public class DirectedAcyclicGraph {
 
         //vertexA.outEdges.add(edge);
         vertexB.incEdges.add(edge);
-
         edgeList.add(edge);
+
+
+        if (topologicalOrdering()==null){
+            System.err.println("Can't add edge, creates a cycle");
+            vertexB.incEdges.remove((vertexB.incEdges.size()-1));
+            edgeList.remove((edgeList.size()-1));
+            vertexA.getNeighbours().remove((vertexA.getNeighbours().size()-1));
+        }
+
     }
 
 
@@ -84,7 +92,15 @@ public class DirectedAcyclicGraph {
             }
         }
         Collections.reverse(lList);
+        resetMarks();
         return lList;
+    }
+
+    private void resetMarks(){
+        for (Vertex v: vertices) {
+            v.setPermMarked(false);
+            v.setTempMarked(false);
+        }
     }
 
     /**
@@ -93,11 +109,11 @@ public class DirectedAcyclicGraph {
      */
     private boolean isUnmarked() {
         for (Vertex v : vertices) {
-            if (!v.isPermMarked()) {
-                return true;
+            if (v.isPermMarked()) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -109,10 +125,12 @@ public class DirectedAcyclicGraph {
         if (n.isTempMarked()) {
             throw new NotADagException();
         }
+
         if (!n.permMarked) {
             n.setTempMarked(true);
 
             ArrayList<Vertex> mList = getEdgesFromVertex(n);
+
             for (Vertex m : mList) {
                 visit(m);
             }

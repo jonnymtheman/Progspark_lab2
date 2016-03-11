@@ -1,11 +1,8 @@
 package dag;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
 /**
  * Conduction of a series of tests for the dag.
  */
@@ -27,9 +24,13 @@ public class DirectedAcyclicGraphTest {
         dag.addEdge(a, b, 'b');
         dag.addEdge(a, c, 'b');
         dag.addEdge(b, d, 'a');
-        dag.addEdge(c, d, 'a');
+        dag.addEdge(d, a, 'a');
+
+        /*
         dag.addEdge(c, e, 'a');
         dag.addEdge(d, e, 'c');
+        dag.addEdge(d, a, 'b');
+        */
     }
 
     /**
@@ -95,8 +96,9 @@ public class DirectedAcyclicGraphTest {
     public void testTopologicalOrdering() throws Exception {
         ArrayList<Vertex> s;
         s=dag.topologicalOrdering();
+
         for (Vertex v: s) {
-           // System.out.println(v.getWeight());
+            System.out.println(v.getWeight());
         }
     }
 
