@@ -26,12 +26,9 @@ public class DirectedAcyclicGraphTest {
         dag.addEdge(a, b, 'b');
         dag.addEdge(a, c, 'b');
         dag.addEdge(b, d, 'a');
-
-        /*
         dag.addEdge(c, e, 'a');
         dag.addEdge(d, e, 'c');
-        dag.addEdge(d, a, 'b');
-        */
+
     }
 
     /**
