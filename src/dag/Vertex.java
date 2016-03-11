@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * Many of the methods in this class are self explanatory.
  */
-class Vertex {
+public class Vertex {
     private Object weight;
     protected ArrayList<Edge> incEdges = new ArrayList<>();
     protected boolean tempMarked = false;
