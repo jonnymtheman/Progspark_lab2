@@ -1,5 +1,7 @@
 package dag;
 
+import dag.DirectedAcyclicGraph;
+import dag.Vertex;
 import org.junit.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -24,7 +26,6 @@ public class DirectedAcyclicGraphTest {
         dag.addEdge(a, b, 'b');
         dag.addEdge(a, c, 'b');
         dag.addEdge(b, d, 'a');
-        dag.addEdge(d, a, 'a');
 
         /*
         dag.addEdge(c, e, 'a');
