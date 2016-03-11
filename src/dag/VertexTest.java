@@ -26,8 +26,6 @@ public class VertexTest {
     public void testSetWeight() throws Exception {
             assertNotEquals(v1.getId(), v2.getId());
             assertNotEquals(true,v1.equals(v2));
-            //v1 = new Vertex("asdsdååpererr");
-            //v2 = new Vertex("asdsdååpererr");
             assertNotEquals(v1.getId(), v2.getId());
             assertNotEquals(true,v1.equals(v2));
     }
