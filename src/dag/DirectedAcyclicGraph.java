@@ -93,7 +93,9 @@ public class DirectedAcyclicGraph {
         }
         Collections.reverse(lList);
         resetMarks();
-        return lList;
+        ArrayList<Vertex> topo = (ArrayList<Vertex>) lList.clone();
+        lList.clear();
+        return topo;
     }
 
     private void resetMarks(){
@@ -109,11 +111,11 @@ public class DirectedAcyclicGraph {
      */
     private boolean isUnmarked() {
         for (Vertex v : vertices) {
-            if (v.isPermMarked()) {
-                return false;
+            if (!v.isPermMarked()) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**

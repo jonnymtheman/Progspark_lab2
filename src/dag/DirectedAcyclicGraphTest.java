@@ -17,11 +17,11 @@ public class DirectedAcyclicGraphTest {
     public void setUp() throws Exception {
         dag = new DirectedAcyclicGraph();
 
-        a = dag.addVertex('d');
-        b = dag.addVertex('e');
+        a = dag.addVertex('a');
+        b = dag.addVertex('b');
         c = dag.addVertex('c');
-        d = dag.addVertex('b');
-        e = dag.addVertex('g');
+        d = dag.addVertex('d');
+        e = dag.addVertex('e');
 
         dag.addEdge(a, b, 'b');
         dag.addEdge(a, c, 'b');
@@ -94,7 +94,6 @@ public class DirectedAcyclicGraphTest {
     public void testTopologicalOrdering() throws Exception {
         ArrayList<Vertex> s;
         s=dag.topologicalOrdering();
-
         for (Vertex v: s) {
             System.out.println(v.getWeight());
         }
