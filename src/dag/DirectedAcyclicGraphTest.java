@@ -1,8 +1,8 @@
 package dag;
 
-import dag.DirectedAcyclicGraph;
-import dag.Vertex;
 import org.junit.*;
+import org.junit.runners.JUnit4;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 /**
@@ -29,6 +29,11 @@ public class DirectedAcyclicGraphTest {
         dag.addEdge(c, e, 'a');
         dag.addEdge(d, e, 'c');
 
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        dag = null;
     }
 
     /**
@@ -90,14 +95,30 @@ public class DirectedAcyclicGraphTest {
             dag.getWeightOflongestPath(dag.getVertexHashList().get(a), dag.getVertexHashList().get(e),f,g);
     }
 
+
+    /**
+     * Test shall get an exception because the edge to be added creates a cycle.
+     */
+    @Test
+    public void testCyclicAdd(){
+            Assert.assertFalse(dag.addEdge(d, a, 'b'));
+    }
+
+    /**
+     * See output for judgment on whether the topological sorting works, I say it does, but who am I? ;)
+     * @throws Exception
+     */
     @Test
     public void testTopologicalOrdering() throws Exception {
         ArrayList<Vertex> s;
         s=dag.topologicalOrdering();
+        Assert.assertNotNull(s);
         for (Vertex v: s) {
             System.out.println(v.getWeight());
         }
     }
+
+
 
 
 }

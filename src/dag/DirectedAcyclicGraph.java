@@ -51,7 +51,7 @@ public class DirectedAcyclicGraph {
      * @param b destination vertex
      * @param weight the weight of the egde.
      */
-    public void addEdge(Object a, Object b, Object weight) {
+    public boolean addEdge(Object a, Object b, Object weight) {
         Vertex vertexA = vertexHashList.get(a);
         Vertex vertexB = vertexHashList.get(b);
         vertexA.addNeighbour(vertexB);
@@ -67,8 +67,9 @@ public class DirectedAcyclicGraph {
             vertexB.incEdges.remove((vertexB.incEdges.size()-1));
             edgeList.remove((edgeList.size()-1));
             vertexA.getNeighbours().remove((vertexA.getNeighbours().size()-1));
+            return false;
         }
-
+        return true;
     }
 
 
